@@ -100,6 +100,19 @@ document.
 Q1. What 'code smells' / anti-patterns did you find in the existing 
 	implementation of part 1 & 2?
 
+1.	Instantiation of DbContext in a loop:
+•	Creating a new instance of DbContext inside the loop is inefficient and can lead to performance issues. It should be instantiated once and reused.
+2.	Lack of Dependency Injection:
+•	The DbContext should be injected via the constructor rather than being instantiated directly within the method. This makes the code more testable and adheres to the Dependency Injection principle.
+3.	Magic Numbers:
+•	The numbers 2 and 1 used to adjust the despatch date for weekends are magic numbers. They should be replaced with named constants for better readability.
+4.	Public Field:
+•	The _mlt field is public, which is not a good practice. It should be private or protected and follow naming conventions (e.g., _maxLeadTime).
+5.	Single Responsibility Principle:
+•	The Get method is doing too much: fetching data, calculating lead times, and adjusting for weekends. This should be broken down into smaller methods.
+6.	Variable Naming:
+•	Variable names like ID, s, and lt are not descriptive. They should be renamed to more meaningful names.
+
 Q2. What best practices have you used while implementing your solution?
 
 Q3. What further steps would you take to improve the solution given more time?
