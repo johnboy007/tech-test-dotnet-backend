@@ -20,6 +20,11 @@ public class PostOfficeTests
         _controller = new DespatchDateController(orderService);
     }
 
+    /// <summary>
+    /// Lead time added to despatch date  
+    /// </summary>
+    /// <param name="productId"></param>
+    /// <param name="leadTime"></param>
     [Theory]
     [InlineData(1, 1)]
     [InlineData(2, 2)]
@@ -28,58 +33,39 @@ public class PostOfficeTests
     {
         // Arrange
         var orderDateMonday = new DateTime(2018, 1, 1);
+
         // Act
         var date = _controller.Get(new List<int> { productId }, orderDateMonday);
+
         // Assert
         date.Date.Date.ShouldBe(orderDateMonday.Date.AddDays(leadTime));
     }
 
-    [Fact]
-    public void OrderReceived_OnSaturday_Will_DespatchMonday()
+    /// <summary>
+    /// Lead time is not counted over a weekend
+    /// </summary>
+    /// <param name="dayOrdered"></param>
+    /// <param name="productId"></param>
+    /// <param name="leadTime"></param>
+    [Theory]
+    [InlineData(5, 1, 1, 8)]
+    [InlineData(6, 1, 1, 9)]
+    [InlineData(7, 1, 1, 9)]
+    public void OrderReceived_OnWeekend_Will_DispatchMondayPlusLeadTime(int dayOrdered, int productId, int leadTime, int dayExpected)
     {
         // Arrange
-        const int productId = 1;
-        const int supplierLeadTime = 1;
-        const int daysTilMonday = 2;
-
-        var orderDateFriday = new DateTime(2018, 1, 26);
-        var receivedDate = orderDateFriday.Date.AddDays(supplierLeadTime);
-        var expectedDispatchDate = receivedDate.Date.AddDays(daysTilMonday);
+        var orderDate = new DateTime(2018, 1, dayOrdered);
+        var expectedDispatchDate = new DateTime(2018, 1, dayExpected);
 
         // Act
-        var date = _controller.Get(new List<int> { productId }, orderDateFriday);
+        var date = _controller.Get(new List<int> { productId }, orderDate);
 
         // Assert
         date.Date.ShouldBe(expectedDispatchDate);
     }
 
     [Fact]
-    public void OrderReceived_OnSunday_Will_DespatchMonday()
-    {
-        // Arrange
-        const int productId = 3;
-        const int supplierLeadTime = 3;
-        const int daysTilMonday = 1;
-
-        var orderDateThursday = new DateTime(2018, 1, 25);
-        var receivedDate = orderDateThursday.Date.AddDays(supplierLeadTime);
-        var expectedDispatchDate = receivedDate.Date.AddDays(daysTilMonday);
-
-        // Act
-        var date = _controller.Get(new List<int> { productId }, orderDateThursday);
-
-        // Assert
-        date.Date.ShouldBe(expectedDispatchDate);
-    }
-
-    [Fact]
-    public void OrderReceivedBySupplier_OnSunday_Will_DespatchMonday()
-    {
-
-    }
-
-    [Fact]
-    public void OrderReceivedBySupplier_OnSaturday_Will_DespatchMonday()
+    public void Supplier_WithLongestLeadTime_Will_BeUsedForCalculation()
     {
 
     }
