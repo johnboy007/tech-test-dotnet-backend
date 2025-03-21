@@ -1,10 +1,13 @@
-﻿namespace Moonpig.PostOffice.Api
+﻿using Moonpig.PostOffice.Data;
+
+namespace Moonpig.PostOffice.Api
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Moonpig.PostOffice.Api.Services;
 
     public class Startup
     {
@@ -19,6 +22,8 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IOrderService, OrderService>();
+            services.AddSingleton<IDbContext, DbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
