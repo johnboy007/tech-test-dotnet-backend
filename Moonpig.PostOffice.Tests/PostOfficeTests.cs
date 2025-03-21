@@ -14,7 +14,10 @@ namespace Moonpig.PostOffice.Tests
         private readonly DespatchDateController _controller;
         public PostOfficeTests()
         {
-            _controller = new DespatchDateController(new OrderService(new DbContext()));
+            var dbContext = new DbContext();
+            var repository = new Repository(dbContext);
+            var orderService = new OrderService(repository);
+            _controller = new DespatchDateController(orderService);
         }
 
         [Fact]

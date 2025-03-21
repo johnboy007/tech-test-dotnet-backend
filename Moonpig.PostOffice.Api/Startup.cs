@@ -24,6 +24,7 @@ namespace Moonpig.PostOffice.Api
             services.AddControllers();
             services.AddSingleton<IOrderService, OrderService>();
             services.AddSingleton<IDbContext, DbContext>();
+            services.AddSingleton<IRepository, Repository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
