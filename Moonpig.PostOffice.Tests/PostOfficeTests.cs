@@ -20,46 +20,18 @@ public class PostOfficeTests
         _controller = new DespatchDateController(orderService);
     }
 
-    [Fact]
-    public void OrderCreated_OnMonday_WithOneDayLeadTime_Will_BeReceivedInOneDay()
+    [Theory]
+    [InlineData(1, 1)]
+    [InlineData(2, 2)]
+    [InlineData(3, 3)]
+    public void OrderCreated_OnMonday_WillAddLeadTimeToDispatchDate(int productId, int leadTime)
     {
         // Arrange
-        const int productId = 1;
-        var orderDateMonday = new DateTime(2018, 1, 21);
-
+        var orderDateMonday = new DateTime(2018, 1, 1);
         // Act
         var date = _controller.Get(new List<int> { productId }, orderDateMonday);
-
         // Assert
-        date.Date.Date.ShouldBe(orderDateMonday.Date.AddDays(1));
-    }
-
-    [Fact]
-    public void OrderCreated_OnMonday_WithTwoDayLeadTime_Will_BeReceivedInTwoDays()
-    {
-        // Arrange
-        const int productId = 2;
-        var orderDateMonday = new DateTime(2018, 1, 21);
-
-        // Act
-        var date = _controller.Get(new List<int> { productId }, orderDateMonday);
-
-        // Assert
-        date.Date.Date.ShouldBe(orderDateMonday.Date.AddDays(2));
-    }
-
-    [Fact]
-    public void OrderCreated_OnMonday_WithThreeDayLeadTime_Will_BeReceivedInThreeDays()
-    {
-        // Arrange
-        const int productId = 3;
-        var orderDateMonday = new DateTime(2018, 1, 21);
-
-        // Act
-        var date = _controller.Get(new List<int> { productId }, orderDateMonday);
-
-        // Assert
-        date.Date.Date.ShouldBe(orderDateMonday.Date.AddDays(3));
+        date.Date.Date.ShouldBe(orderDateMonday.Date.AddDays(leadTime));
     }
 
     [Fact]
@@ -98,5 +70,17 @@ public class PostOfficeTests
 
         // Assert
         date.Date.ShouldBe(expectedDispatchDate);
+    }
+
+    [Fact]
+    public void OrderReceivedBySupplier_OnSunday_Will_DespatchMonday()
+    {
+
+    }
+
+    [Fact]
+    public void OrderReceivedBySupplier_OnSaturday_Will_DespatchMonday()
+    {
+
     }
 }
