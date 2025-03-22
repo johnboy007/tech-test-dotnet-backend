@@ -5,14 +5,14 @@ using Moonpig.PostOffice.Data;
 
 namespace Moonpig.PostOffice.Api.Services;
 
-public class OrderService : IOrderService
+public class DispatchService : IDispatchService
 {
     private const int DaysToAddForSaturday = 2;
     private const int DaysToAddForSunday = 1;
     private readonly IRepository _repository;
     private DateTime _dispatchDate;
 
-    public OrderService(IRepository repository)
+    public DispatchService(IRepository repository)
     {
         _repository = repository;
     }

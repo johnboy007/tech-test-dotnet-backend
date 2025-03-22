@@ -22,7 +22,7 @@ namespace Moonpig.PostOffice.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IOrderService, OrderService>();
+            services.AddSingleton<IDispatchService, DispatchService>();
             services.AddSingleton<IDbContext, DbContext>();
             services.AddSingleton<IRepository, Repository>();
         }

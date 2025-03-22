@@ -9,17 +9,17 @@
     [Route("api/[controller]")]
     public class DespatchDateController : Controller
     {
-        private readonly IOrderService _orderService;
+        private readonly IDispatchService _dispatchService;
 
-        public DespatchDateController(IOrderService orderService)
+        public DespatchDateController(IDispatchService dispatchService)
         {
-            _orderService = orderService;
+            _dispatchService = dispatchService;
         }
 
         [HttpGet]
         public DespatchDate Get(List<int> productIds, DateTime orderDate)
         {
-            return _orderService.GetDespatchDate(productIds, orderDate);
+            return _dispatchService.GetDespatchDate(productIds, orderDate);
         }
     }
 }

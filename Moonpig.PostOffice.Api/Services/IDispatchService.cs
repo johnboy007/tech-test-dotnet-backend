@@ -4,7 +4,7 @@ using Moonpig.PostOffice.Api.Model;
 
 namespace Moonpig.PostOffice.Api.Services;
 
-public interface IOrderService
+public interface IDispatchService
 {
     DespatchDate GetDespatchDate(List<int> productIds, DateTime createdOrderDate);
 }

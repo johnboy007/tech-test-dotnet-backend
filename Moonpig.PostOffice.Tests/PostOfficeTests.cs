@@ -16,7 +16,7 @@ public class PostOfficeTests
     {
         var dbContext = new DbContext();
         var repository = new Repository(dbContext);
-        var orderService = new OrderService(repository);
+        var orderService = new DispatchService(repository);
         _controller = new DespatchDateController(orderService);
     }
 
