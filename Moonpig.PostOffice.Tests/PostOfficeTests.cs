@@ -67,6 +67,30 @@ public class PostOfficeTests
     [Fact]
     public void Supplier_WithLongestLeadTime_Will_BeUsedForCalculation()
     {
+        // Arrange
+        var orderDateMonday = new DateTime(2018, 1, 1);
+        var expectedDispatchDate = new DateTime(2018, 1, 3);
 
+        // Act
+        var date = _controller.Get(new List<int> { 1, 2 }, orderDateMonday);
+
+        // Assert
+        date.Date.Date.ShouldBe(expectedDispatchDate);
+    }
+
+    [Theory]
+    [InlineData(5, 9, 6, 15)]
+    [InlineData(5, 8, 11, 22)]
+    public void OrderService_CanProcessDispatchDates_WithLongSupplierLeadTimes(int dayOrdered, int productId, int leadTime, int dayExpected)
+    {
+        // Arrange
+        var orderDate = new DateTime(2018, 1, dayOrdered);
+        var expectedDispatchDate = new DateTime(2018, 1, dayExpected);
+
+        // Act
+        var date = _controller.Get(new List<int> { productId }, orderDate);
+
+        // Assert
+        date.Date.ShouldBe(expectedDispatchDate);
     }
 }

@@ -6,5 +6,5 @@ namespace Moonpig.PostOffice.Api.Services;
 
 public interface IOrderService
 {
-    DespatchDate GetDespatchDate(List<int> productIds, DateTime orderDate);
+    DespatchDate GetDespatchDate(List<int> productIds, DateTime createdOrderDate);
 }

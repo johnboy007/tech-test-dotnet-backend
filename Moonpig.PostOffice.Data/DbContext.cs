@@ -45,6 +45,12 @@
                     SupplierId = 6,
                     Name = "Tacky T-Shrts",
                     LeadTime = 13
+                },
+                new Supplier
+                {
+                    SupplierId = 7,
+                    Name = "StarWars",
+                    LeadTime = 11
                 }
             }.AsQueryable();
 
