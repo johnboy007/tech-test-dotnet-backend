@@ -114,11 +114,21 @@ Q1. What 'code smells' / anti-patterns did you find in the existing
 •	Variable names like ID, s, and lt are not descriptive. They should be renamed to more meaningful names.
 
 Q2. What best practices have you used while implementing your solution?
+1. Using SOLID principles: 
+*  I have used the Single Responsibility Principle to break down the ControllerGet method and seperate into a dispatchService with more manageable methods. This makes the code easier to read, maintain, and test.
+2. The dispatchService also injects the IRepository which atm uses the stubbed DbContext, but in a real-world scenario, it would be replaced with a real database context.
+3. Dependency Injection: 
+4. TDD: I have written unit tests for the dispatchService to ensure that the code works as expected and is maintainable. This also helps to catch any regressions when refactoring the code.
 
 Q3. What further steps would you take to improve the solution given more time?
+1. Error Handling: Add error handling to the code to handle exceptions and provide meaningful error messages to the user.
+2. Logging: Implement logging to record important events and errors for monitoring and debugging purposes.
+3. Performance Optimization: Optimize the code for performance by identifying bottlenecks and improving the efficiency of the algorithms.
+4. Mock the IRepository: I would mock the IRepository in the unit tests to isolate the tests from the database and improve test speed and reliability.
 
 Q4. What's a technology that you're excited about and where do you see this 
     being applicable? (Your answer does not have to be related to this problem)
+1. I am excited about the potential of Artificial Intelligence (AI) and Machine Learning (ML) to predict and analyze specific data that users are interested in on platforms and how we can use that to engauge them more.
 
 ## Request and Response Examples
 
