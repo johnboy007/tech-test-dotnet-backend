@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Moonpig.PostOffice.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:56609;http://localhost:56610",
+      "launchUrl": "swagger"
+    }
+  }
+}

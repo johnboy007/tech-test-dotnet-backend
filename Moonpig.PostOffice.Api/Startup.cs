@@ -22,6 +22,8 @@ namespace Moonpig.PostOffice.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
             services.AddSingleton<IDispatchService, DispatchService>();
             services.AddSingleton<IDbContext, DbContext>();
             services.AddSingleton<IRepository, Repository>();
@@ -33,6 +35,8 @@ namespace Moonpig.PostOffice.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
